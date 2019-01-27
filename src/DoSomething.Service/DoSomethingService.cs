@@ -12,10 +12,9 @@ namespace DoSomething.Service
         {
             _bus = bus;
         }
-        public void Execute()
+        public async void Execute()
         {
-            _bus.Send(new StuffCommand { Description = "Stuff description" });
-            
+            await  _bus.Send(new StuffCommand { Description = "Stuff description" });            
         }
     }
 }
