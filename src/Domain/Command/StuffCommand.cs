@@ -1,9 +1,15 @@
 ﻿using Domain.Core.Command;
+using System;
 
 namespace Domain.Command
 {
-    public abstract class StuffCommand : ICommand
+    public class StuffCommand : ICommand
     {
-        public abstract bool IsValid();
+        public string Description { get; set; }
+
+        public bool IsValid()
+        {
+            return !string.IsNullOrWhiteSpace(Description);
+        }
     }
 }

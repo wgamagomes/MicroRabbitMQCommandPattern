@@ -1,4 +1,5 @@
-﻿using Domain.Core.Bus;
+﻿using Domain.Command;
+using Domain.Core.Bus;
 using Service.Core;
 
 namespace DoSomething.Service
@@ -13,7 +14,8 @@ namespace DoSomething.Service
         }
         public void Execute()
         {
-            //Invoke the bus here
+            _bus.Send(new StuffCommand { Description = "Stuff description" });
+            
         }
     }
 }

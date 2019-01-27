@@ -4,11 +4,11 @@ namespace Domain
 {
     public class Stuff : Entity
     {
-        public string OwnerName { get; set; }
+        public string Description { get; set; }
 
-        public Stuff(string ownerName)
+        public Stuff(string description)
         {
-            OwnerName = ownerName;
+            Description = description;
         }
     }
 }

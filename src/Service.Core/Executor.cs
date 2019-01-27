@@ -14,7 +14,7 @@ namespace Service.Core
 
                 config.Service<RecurrenceIntervalControl>(s =>
                 {
-                    s.ConstructUsing(name => new RecurrenceIntervalControl(1000));
+                    s.ConstructUsing(name => new RecurrenceIntervalControl(60000));
                     s.WhenStarted((serviceManager, hostControl) =>
                     {
                         serviceManager.Execute(() =>
