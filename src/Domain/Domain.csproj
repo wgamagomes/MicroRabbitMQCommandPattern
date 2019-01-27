@@ -41,6 +41,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CommandHandler\StuffCommandHandler.cs" />
+    <Compile Include="Command\CreateStuffCommand.cs" />
+    <Compile Include="Command\DeleteStuffCommand.cs" />
+    <Compile Include="Command\UpdateStuffCommand.cs" />
     <Compile Include="Command\StuffCommand.cs" />
     <Compile Include="Entity\Stuff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
