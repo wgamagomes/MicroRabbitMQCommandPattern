@@ -1,5 +1,5 @@
 ﻿using Domain.Core.Bus;
-using Infra.CrossCutting.Bus;
+using Infra.Mediator;
 using Infra.CrossCutting.IoC;
 using Service.Core;
 

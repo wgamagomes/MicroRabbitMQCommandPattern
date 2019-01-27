@@ -4,16 +4,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8BEBE58A-DA44-4220-BCB6-2B3639612387}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>DoSomething.Service</RootNamespace>
-    <AssemblyName>DoSomething.Service</AssemblyName>
+    <ProjectGuid>{4D598063-AC38-43D8-B16B-F6CD4292B48C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Infra.Mediator</RootNamespace>
+    <AssemblyName>Infra.Mediator</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -23,7 +22,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -32,6 +30,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Diagnostics.Tracing.EventSource, Version=1.1.28.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Diagnostics.Tracing.EventSource.Redist.1.1.28\lib\net46\Microsoft.Diagnostics.Tracing.EventSource.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Polly, Version=6.0.0.0, Culture=neutral, PublicKeyToken=c8a3ffc3f8f825cc, processorArchitecture=MSIL">
+      <HintPath>..\packages\Polly.6.1.2\lib\netstandard2.0\Polly.dll</HintPath>
+    </Reference>
+    <Reference Include="RabbitMQ.Client, Version=5.0.0.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
+      <HintPath>..\packages\RabbitMQ.Client.5.1.0\lib\net451\RabbitMQ.Client.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -42,12 +52,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Connection\IRabbitConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="DoSomethingService.cs" />
+    <Compile Include="Bus\RabbitBus.cs" />
+    <Compile Include="Configuration\RabbitConfiguration.cs" />
+    <Compile Include="Connection\RabbitConnection.cs" />
+    <Compile Include="Extensions\SerializationExtension.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain.Core\Domain.Core.csproj">
@@ -57,18 +70,6 @@
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{db41a442-1ccc-4d62-90e9-7404015f0b55}</Project>
       <Name>Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infra.CrossCutting\Infra.CrossCutting.IoC.csproj">
-      <Project>{9f5688d8-6290-4d19-9376-34945d8d5227}</Project>
-      <Name>Infra.CrossCutting.IoC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Infra.Mediator\Infra.Mediator.csproj">
-      <Project>{4d598063-ac38-43d8-b16b-f6cd4292b48c}</Project>
-      <Name>Infra.Mediator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Service.Core\Service.Core.csproj">
-      <Project>{cc01ee69-fca7-4e7d-b8d4-ce6fc9f7d932}</Project>
-      <Name>Service.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

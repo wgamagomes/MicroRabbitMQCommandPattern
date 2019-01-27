@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace Infra.CrossCutting.Bus
+namespace Infra.Mediator
 {
     public static class SerializationExtension
     {

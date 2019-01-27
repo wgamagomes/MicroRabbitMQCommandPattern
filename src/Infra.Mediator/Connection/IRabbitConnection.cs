@@ -1,7 +1,7 @@
 ﻿using RabbitMQ.Client;
 using System.Threading.Tasks;
 
-namespace Infra.CrossCutting.Bus
+namespace Infra.Mediator
 {
     public interface IRabbitConnection
     {

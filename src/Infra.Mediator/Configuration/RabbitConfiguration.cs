@@ -1,4 +1,4 @@
-﻿namespace Infra.CrossCutting.Bus
+﻿namespace Infra.Mediator
 {
     /// <summary>
     /// Each specific service should be provide their own configuration.

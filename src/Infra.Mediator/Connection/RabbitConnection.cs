@@ -4,7 +4,7 @@ using RabbitMQ.Client.Exceptions;
 using System;
 using System.Threading.Tasks;
 
-namespace Infra.CrossCutting.Bus
+namespace Infra.Mediator
 {
     public class RabbitConnection : IRabbitConnection
     {

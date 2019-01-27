@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Threading.Tasks;
 
-namespace Infra.CrossCutting.Bus
+namespace Infra.Mediator
 {
     public class RabbitBus : IBus
     {
