@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandHandler\StuffCommandHandler.cs" />
+    <Compile Include="Handler\StuffEventHandler.cs" />
     <Compile Include="Event\StuffEvent.cs" />
     <Compile Include="Entity\Stuff.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

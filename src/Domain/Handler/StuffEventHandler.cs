@@ -1,12 +1,11 @@
-﻿using Domain.Event;
-using Domain.Core.Event;
+﻿using Domain.Core.Event;
 using Domain.Core.Handler;
 using System;
 using System.Threading.Tasks;
 
-namespace Domain.CommandHandler
+namespace Domain.Handler
 {
-    public class StuffCommandHandler : IEventHandler<IEvent>
+    public class StuffEventHandler : IEventHandler<IEvent>
     {
         public Task Handler(IEvent @event)
         {

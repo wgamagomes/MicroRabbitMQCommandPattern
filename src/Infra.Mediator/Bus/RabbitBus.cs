@@ -1,5 +1,6 @@
 ﻿using Domain.Core.Bus;
 using Domain.Core.Event;
+using Domain.Core.Handler;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Threading.Tasks;
@@ -30,6 +31,13 @@ namespace Infra.Mediator
                 _channel.BasicPublish(exchange: RabbitConfiguration.ExchangeName, routingKey: RabbitConfiguration.RoutingKey, basicProperties: null, body: json.Serialize());
 
             });
+        }
+
+        public void Subscribe<TEvent, TEventHandler>()
+            where TEvent : IEvent
+            where TEventHandler : IEventHandler<TEvent>
+        {
+            throw new System.NotImplementedException();
         }
 
         private void CreateExchangeIfNotExists(string name) => _channel.ExchangeDeclare(exchange: name, type: ExchangeType.Fanout, durable: false, autoDelete: false, arguments: null);
