@@ -1,14 +1,14 @@
-﻿using Domain.Command;
-using Domain.Core.Command;
-using Domain.Core.CommandHandler;
+﻿using Domain.Event;
+using Domain.Core.Event;
+using Domain.Core.Handler;
 using System;
 using System.Threading.Tasks;
 
 namespace Domain.CommandHandler
 {
-    public class StuffCommandHandler : ICommandHandler<ICommand>
+    public class StuffCommandHandler : IEventHandler<IEvent>
     {
-        public Task Handle(ICommand command)
+        public Task Handler(IEvent @event)
         {
             throw new NotImplementedException();
         }

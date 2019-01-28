@@ -1,12 +1,12 @@
 ﻿using Domain.Core.Bus;
-using Domain.Core.Command;
+using Domain.Core.Event;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using System.Threading.Tasks;
 
 namespace Infra.Mediator
 {
-    public class RabbitBus : IBus
+    public class RabbitBus : IEventBus
     {
         private readonly IRabbitConnection _rabbitConnection;
         private readonly IModel _channel;
@@ -16,13 +16,13 @@ namespace Infra.Mediator
             _rabbitConnection = rabbitConnection;
             _channel = _rabbitConnection.GetChannel().GetAwaiter().GetResult();
         }
-        public Task Send(ICommand command)
+        public Task Publish(IEvent @event)
         {
             return Task.Run(() =>
             {
                 CreateExchangeIfNotExists(RabbitConfiguration.ExchangeName);
 
-                var json = JsonConvert.SerializeObject(command, new JsonSerializerSettings()
+                var json = JsonConvert.SerializeObject(@event, new JsonSerializerSettings()
                 {
                     TypeNameHandling = TypeNameHandling.Auto
                 });

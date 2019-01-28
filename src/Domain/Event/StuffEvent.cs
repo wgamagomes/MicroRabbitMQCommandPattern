@@ -1,9 +1,8 @@
-﻿using Domain.Core.Command;
-using System;
+﻿using Domain.Core.Event;
 
-namespace Domain.Command
+namespace Domain.Event
 {
-    public class StuffCommand : ICommand
+    public class StuffEvent : IEvent
     {
         public string Description { get; set; }
 
