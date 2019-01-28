@@ -1,2 +1,2 @@
-# MicroRabbitMQCommandPattern
-A micro command pattern implementation to RabbitMQ
+# Micro RabbitMQ EventBus
+A micro EventBus implementation to RabbitMQ
