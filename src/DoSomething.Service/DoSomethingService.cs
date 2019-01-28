@@ -1,4 +1,4 @@
-﻿using Domain.Event;
+﻿using Domain;
 using Domain.Core.Bus;
 using Service.Core;
 

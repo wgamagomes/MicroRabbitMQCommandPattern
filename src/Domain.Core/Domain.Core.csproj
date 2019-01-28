@@ -42,7 +42,7 @@
   <ItemGroup>
     <Compile Include="Bus\IEventBus.cs" />
     <Compile Include="Handler\IEventHandler.cs" />
-    <Compile Include="Event\IEvent.cs" />
+    <Compile Include="Event\Event.cs" />
     <Compile Include="Entity\Entity.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

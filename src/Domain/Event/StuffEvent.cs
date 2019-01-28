@@ -1,12 +1,12 @@
-﻿using Domain.Core.Event;
+﻿using Domain.Core;
 
-namespace Domain.Event
+namespace Domain
 {
-    public class StuffEvent : IEvent
+    public class StuffEvent : Event
     {
         public string Description { get; set; }
 
-        public bool IsValid()
+        public override bool IsValid()
         {
             return !string.IsNullOrWhiteSpace(Description);
         }

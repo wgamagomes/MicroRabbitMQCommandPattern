@@ -1,5 +1,5 @@
 ﻿using Domain.Core.Bus;
-using Domain.Core.Event;
+using Domain.Core;
 using Domain.Core.Handler;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -7,17 +7,17 @@ using System.Threading.Tasks;
 
 namespace Infra.Mediator
 {
-    public class RabbitBus : IEventBus
+    public class EventBus : IEventBus
     {
         private readonly IRabbitConnection _rabbitConnection;
         private readonly IModel _channel;
 
-        public RabbitBus(IRabbitConnection rabbitConnection)
+        public EventBus(IRabbitConnection rabbitConnection)
         {
             _rabbitConnection = rabbitConnection;
             _channel = _rabbitConnection.GetChannel().GetAwaiter().GetResult();
         }
-        public Task Publish(IEvent @event)
+        public Task Publish(Event @event)
         {
             return Task.Run(() =>
             {
@@ -34,7 +34,7 @@ namespace Infra.Mediator
         }
 
         public void Subscribe<TEvent, TEventHandler>()
-            where TEvent : IEvent
+            where TEvent : Event
             where TEventHandler : IEventHandler<TEvent>
         {
             throw new System.NotImplementedException();

@@ -11,7 +11,7 @@ namespace DoSomething.Service
         {
             var ioc = new DependencyInjector(ScopedLifetime.AsyncScoped);
 
-            ioc.Register<IEventBus, RabbitBus>();
+            ioc.Register<IEventBus, EventBus>();
             ioc.Register<IRabbitConnection, RabbitConnection>();
 
             Executor.Execute<DoSomethingService>(ioc);

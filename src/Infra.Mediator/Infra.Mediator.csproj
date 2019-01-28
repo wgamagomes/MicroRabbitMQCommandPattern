@@ -54,7 +54,7 @@
   <ItemGroup>
     <Compile Include="Connection\IRabbitConnection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Bus\RabbitBus.cs" />
+    <Compile Include="Bus\EventBus.cs" />
     <Compile Include="Configuration\RabbitConfiguration.cs" />
     <Compile Include="Connection\RabbitConnection.cs" />
     <Compile Include="Extensions\SerializationExtension.cs" />

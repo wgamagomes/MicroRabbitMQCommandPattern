@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Handler
 {
-    public class WhateverEventHandler : IEventHandler<Event>
+    public class StuffEventHandler : IEventHandler<Event>
     {
         public Task Handler(Event @event)
         {
