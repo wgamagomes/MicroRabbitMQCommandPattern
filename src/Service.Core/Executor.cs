@@ -1,4 +1,10 @@
-﻿using Infra.CrossCutting.IoC;
+﻿using Domain;
+using Domain.Core;
+using Domain.Core.Handler;
+using Domain.Handler;
+using Infra.CrossCutting.IoC;
+using System;
+using System.Collections.Generic;
 using Topshelf;
 
 namespace Service.Core
@@ -33,6 +39,19 @@ namespace Service.Core
                 config.SetDisplayName("Stuff");
                 config.SetDescription("Sample Topshelf Host");
             });
+        }
+
+        public static void Listen<TEvent>(IIoc ioc)
+           where TEvent : Event
+        {
+            Func<IEnumerable<IEventHandler<TEvent>>> eventHandlerFactory = () =>
+            {
+                return ioc.GetAllInstances<IEventHandler<TEvent>>();
+            };
+
+            var service = ioc.GetInstance<Listener>();
+
+            service.Subscribe(eventHandlerFactory);
         }
     }
 }

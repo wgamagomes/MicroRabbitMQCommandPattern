@@ -2,6 +2,13 @@
 using Infra.Mediator;
 using Infra.CrossCutting.IoC;
 using Service.Core;
+using Domain.Handler;
+using Domain.Core.Handler;
+using Domain.Core;
+using Domain;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace DoSomething.Service
 {
@@ -11,10 +18,15 @@ namespace DoSomething.Service
         {
             var ioc = new DependencyInjector(ScopedLifetime.AsyncScoped);
 
-            ioc.Register<IEventBus, EventBus>();
+            ioc.Register<IEventBus, RabbitEventBus>();
             ioc.Register<IRabbitConnection, RabbitConnection>();
-
-            Executor.Execute<DoSomethingService>(ioc);
+            ioc.RegisterCollection<IEventHandler<StuffEvent>>(typeof(StuffEventHandler), typeof(WhateverEventHandler));
+            
+            // Executor.Execute<DoSomethingService>(ioc);
+           
+                       
+            
+            Executor.Listen<StuffEvent>(ioc);
         }
     }
 }

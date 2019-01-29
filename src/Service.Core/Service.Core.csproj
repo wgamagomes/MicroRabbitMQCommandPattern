@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="Executor.cs" />
     <Compile Include="IRoutine.cs" />
+    <Compile Include="IListener.cs" />
+    <Compile Include="Listener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RecurrenceIntervalControl\RecurrenceIntervalControl.cs" />
   </ItemGroup>
@@ -64,6 +66,10 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Domain.Core\Domain.Core.csproj">
+      <Project>{2d7428e0-9aa3-4de0-83cc-1dbdbe705488}</Project>
+      <Name>Domain.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Domain\Domain.csproj">
       <Project>{db41a442-1ccc-4d62-90e9-7404015f0b55}</Project>
       <Name>Domain</Name>

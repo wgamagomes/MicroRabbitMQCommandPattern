@@ -14,7 +14,8 @@ namespace DoSomething.Service
         }
         public async void Execute()
         {
-            await  _bus.Publish(new StuffEvent { Description = "Stuff description" });            
+            //Do here your business logic and after publish your event
+            await _bus.Publish(new StuffEvent { Description = "Stuff description" });            
         }
     }
 }

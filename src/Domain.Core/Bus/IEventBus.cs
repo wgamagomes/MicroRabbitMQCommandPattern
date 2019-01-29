@@ -1,5 +1,7 @@
 ﻿using Domain.Core;
 using Domain.Core.Handler;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Domain.Core.Bus
@@ -8,8 +10,8 @@ namespace Domain.Core.Bus
     {
         Task Publish(Event @event);
 
-        void Subscribe<TEvent, TEventHandler>()
-            where TEvent : Event
-            where TEventHandler : IEventHandler<TEvent>;
+        Task Subscribe<TEvent>(Func<IEnumerable<IEventHandler<TEvent>>> eventHandlerFactory)
+            where TEvent : Event;
+
     }
 }

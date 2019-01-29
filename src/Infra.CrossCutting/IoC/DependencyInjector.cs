@@ -1,6 +1,8 @@
 ﻿using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Web.Http.Dependencies;
 
 namespace Infra.CrossCutting.IoC
@@ -122,6 +124,22 @@ namespace Infra.CrossCutting.IoC
                     return null;
             }
         }
+
+        public void RegisterCollection<TService>(params Type[] types)
+             where TService : class
+        {
+            _container.Collection.Register<TService>(types);
+        }
+
+        public IEnumerable<TService> GetAllInstances<TService>()
+             where TService : class
+        {
+            return _container.GetAllInstances<TService>();
+        }
+
+
+     
+
     }
     public enum ObjectLifetime
     {

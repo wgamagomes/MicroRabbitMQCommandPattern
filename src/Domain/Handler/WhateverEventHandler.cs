@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace Domain.Handler
 {
-    public class StuffEventHandler : IEventHandler<Event>
+    public class WhateverEventHandler : IEventHandler<StuffEvent>
     {
-        public Task Handler(Event @event)
+        public Task Handler(StuffEvent @event)
         {
             //Do here your business logic 
 
