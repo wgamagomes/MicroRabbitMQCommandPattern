@@ -1,5 +1,4 @@
-﻿using Domain.Core;
-using Domain.Core.Handler;
+﻿using Domain.Core.Handler;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

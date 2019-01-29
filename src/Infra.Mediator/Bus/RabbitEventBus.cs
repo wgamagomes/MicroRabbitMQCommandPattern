@@ -53,7 +53,7 @@ namespace Infra.Mediator
 
             consumer.Received += (sender, e) =>
             {
-                var evento = e.Body.Deserialize<TEvent>();
+                var evento = JsonConvert.DeserializeObject<TEvent>(e.Body.Deserialize<string>());
 
                 foreach (var handler in eventHandlerFactory.Invoke())
                 {
@@ -61,7 +61,7 @@ namespace Infra.Mediator
                 }
             };
 
-            _channel.BasicConsume(queue: queue, autoAck: false, consumer: consumer);
+            _channel.BasicConsume(queue: queue, autoAck: true, consumer: consumer);
 
             return Task.CompletedTask;
         }

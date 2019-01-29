@@ -1,5 +1,4 @@
-﻿using Domain.Core;
-using Domain.Core.Handler;
+﻿using Domain.Core.Handler;
 using System.Threading.Tasks;
 
 namespace Domain.Handler

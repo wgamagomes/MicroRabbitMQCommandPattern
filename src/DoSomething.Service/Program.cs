@@ -1,14 +1,10 @@
-﻿using Domain.Core.Bus;
-using Infra.Mediator;
-using Infra.CrossCutting.IoC;
-using Service.Core;
-using Domain.Handler;
+﻿using Domain;
+using Domain.Core.Bus;
 using Domain.Core.Handler;
-using Domain.Core;
-using Domain;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using Domain.Handler;
+using Infra.CrossCutting.IoC;
+using Infra.Mediator;
+using Service.Core;
 
 namespace DoSomething.Service
 {
@@ -21,11 +17,11 @@ namespace DoSomething.Service
             ioc.Register<IEventBus, RabbitEventBus>();
             ioc.Register<IRabbitConnection, RabbitConnection>();
             ioc.RegisterCollection<IEventHandler<StuffEvent>>(typeof(StuffEventHandler), typeof(WhateverEventHandler));
-            
-            // Executor.Execute<DoSomethingService>(ioc);
-           
-                       
-            
+
+            /*Producer service test*/
+            //Executor.Execute<DoSomethingService>(ioc);
+
+            /*Event handlers test*/
             Executor.Listen<StuffEvent>(ioc);
         }
     }

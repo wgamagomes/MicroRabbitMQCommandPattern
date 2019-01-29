@@ -1,7 +1,6 @@
 ﻿using SimpleInjector;
 using SimpleInjector.Lifestyles;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Web.Http.Dependencies;
 

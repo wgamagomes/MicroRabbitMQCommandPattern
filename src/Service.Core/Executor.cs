@@ -1,7 +1,5 @@
-﻿using Domain;
-using Domain.Core;
+﻿using Domain.Core;
 using Domain.Core.Handler;
-using Domain.Handler;
 using Infra.CrossCutting.IoC;
 using System;
 using System.Collections.Generic;
@@ -20,7 +18,7 @@ namespace Service.Core
 
                 config.Service<RecurrenceIntervalControl>(s =>
                 {
-                    s.ConstructUsing(name => new RecurrenceIntervalControl(1000));
+                    s.ConstructUsing(name => new RecurrenceIntervalControl(10000));
                     s.WhenStarted((serviceManager, hostControl) =>
                     {
                         serviceManager.Execute(() =>
