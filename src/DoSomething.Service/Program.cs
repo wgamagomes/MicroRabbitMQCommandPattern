@@ -5,6 +5,7 @@ using Domain.Handler;
 using Infra.CrossCutting.IoC;
 using Infra.Mediator;
 using Service.Core;
+using System.Threading.Tasks;
 
 namespace DoSomething.Service
 {
@@ -18,8 +19,10 @@ namespace DoSomething.Service
             ioc.Register<IRabbitConnection, RabbitConnection>();
             ioc.RegisterCollection<IEventHandler<StuffEvent>>(typeof(StuffEventHandler), typeof(WhateverEventHandler));
 
-            /*Producer service test*/
-            //Executor.Execute<DoSomethingService>(ioc);
+            Task.Run(() => {
+                /*Producer service test*/
+                Executor.Execute<DoSomethingService>(ioc);
+            });
 
             /*Event handlers test*/
             Executor.Listen<StuffEvent>(ioc);
