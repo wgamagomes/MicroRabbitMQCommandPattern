@@ -2,6 +2,7 @@
 using RabbitMQ.Client;
 using RabbitMQ.Client.Exceptions;
 using System;
+using System.Configuration;
 using System.Threading.Tasks;
 
 namespace Infra.Mediator
@@ -24,11 +25,13 @@ namespace Infra.Mediator
             {
                 if (_connection?.IsOpen == null || _connection?.IsOpen == false)
                 {
+                    var rabbitSection = RabbitSection.Section.Settings;
+
                     var rabbitFactory = new ConnectionFactory
                     {
-                        HostName = RabbitConfiguration.Host,
-                        UserName = RabbitConfiguration.User,
-                        Password = RabbitConfiguration.Password
+                        HostName = rabbitSection.Host,
+                        UserName = rabbitSection.User,
+                        Password = rabbitSection.Password
                     };
 
                     Policy.Handle<BrokerUnreachableException>()
