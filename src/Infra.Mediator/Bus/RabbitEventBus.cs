@@ -79,7 +79,6 @@ namespace Infra.Mediator
             return Task.CompletedTask;
         }
 
-
         private Task HandleEvent<TEvent>(IEventHandler<TEvent> subscription, TEvent @event)
              where TEvent : Event
         {
@@ -109,6 +108,5 @@ namespace Infra.Mediator
         private void QueueDeclare(string queue, bool durable = true, bool exclusive = false, bool autoDelete = false, IDictionary<string, object> arguments = null) => _channel.QueueDeclare(queue, durable, exclusive, autoDelete, arguments);
 
         private void QueueBind(string queue, string exchange, string routingKey, IDictionary<string, object> arguments = null) => _channel.QueueBind(queue: queue, exchange: exchange, routingKey: routingKey, arguments: arguments);
-
     }
 }
