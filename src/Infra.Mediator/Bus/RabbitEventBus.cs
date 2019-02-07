@@ -24,16 +24,16 @@ namespace Infra.Mediator
             return Task.Run(() =>
             {
                 var eventType = @event.GetType();
-                var exchange = Exchange(eventType);
+                var exchangeName = ExchangeName(eventType);
 
-                ExchangeDeclare(exchange);
+                ExchangeDeclare(exchangeName);
 
                 var json = JsonConvert.SerializeObject(@event, new JsonSerializerSettings()
                 {
                     TypeNameHandling = TypeNameHandling.Auto
                 });
 
-                _channel.BasicPublish(exchange: Exchange(eventType), routingKey: RoutingKey(eventType), basicProperties: null, body: json.Serialize());
+                _channel.BasicPublish(exchange: exchangeName, routingKey: RoutingKey(eventType), basicProperties: null, body: json.Serialize());
 
             });
         }
@@ -43,14 +43,14 @@ namespace Infra.Mediator
         {
             var eventType = typeof(TEvent);
             var routingKey = RoutingKey(eventType);
-            var exchange = Exchange(eventType);
+            var exchangeName = ExchangeName(eventType);
 
             foreach (var handler in eventHandlerFactory.Invoke())
             {
                 var handlerType = handler.GetType();
-                var queue = Queue(handlerType);
-                QueueDeclare(queue);
-                QueueBind(queue, exchange, routingKey);
+                var queueName = QueueName(handlerType);
+                QueueDeclare(queueName);
+                QueueBind(queueName, exchangeName, routingKey);
 
                 var consumer = new EventingBasicConsumer(_channel);
 
@@ -67,12 +67,12 @@ namespace Infra.Mediator
 
                     catch (Exception ex)
                     {
-                        string error = $"an error occurred while handling the event. Exchange: {exchange}, Queue : {queue}, Message: {ex.Message}";
+                        string error = $"an error occurred while handling the event. Exchange: {exchangeName}, Queue : {queueName}, Message: {ex.Message}";
                         _channel.BasicNack(e.DeliveryTag, false, !e.Redelivered);
                     }
                 };
 
-                _channel.BasicConsume(queue: queue, autoAck: false, consumer: consumer);
+                _channel.BasicConsume(queue: queueName, autoAck: false, consumer: consumer);
             }
             return Task.CompletedTask;
         }
@@ -87,12 +87,12 @@ namespace Infra.Mediator
             });
         }
 
-        public string Exchange(Type @event)
+        public string ExchangeName(Type @event)
         {
             return $"{@event.Name}-exchange";
         }
 
-        public string Queue(Type @event)
+        public string QueueName(Type @event)
         {
             return $"{@event.Name}-queue";
         }
