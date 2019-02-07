@@ -25,6 +25,8 @@ namespace Infra.Mediator
             {
                 var eventType = @event.GetType();
                 var exchangeName = ExchangeName(eventType);
+                var properties = _channel.CreateBasicProperties();
+                properties.DeliveryMode = 2;
 
                 ExchangeDeclare(exchangeName);
 
@@ -33,7 +35,7 @@ namespace Infra.Mediator
                     TypeNameHandling = TypeNameHandling.Auto
                 });
 
-                _channel.BasicPublish(exchange: exchangeName, routingKey: RoutingKey(eventType), basicProperties: null, body: json.Serialize());
+                _channel.BasicPublish(exchange: exchangeName, routingKey: RoutingKey(eventType), basicProperties: properties, body: json.Serialize());
 
             });
         }
