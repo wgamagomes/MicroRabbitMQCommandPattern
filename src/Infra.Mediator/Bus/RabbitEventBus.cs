@@ -44,25 +44,36 @@ namespace Infra.Mediator
             var eventType = typeof(TEvent);
             var routingKey = RoutingKey(eventType);
             var exchange = Exchange(eventType);
-            var queue = Queue(eventType);
 
-            QueueDeclare(queue);
-            QueueBind(queue, exchange, routingKey);
-
-            var consumer = new EventingBasicConsumer(_channel);
-
-            consumer.Received += (sender, e) =>
+            foreach (var handler in eventHandlerFactory.Invoke())
             {
-                var evento = JsonConvert.DeserializeObject<TEvent>(e.Body.Deserialize<string>());
+                var handlerType = handler.GetType();
+                var queue = Queue(handlerType);
+                QueueDeclare(queue);
+                QueueBind(queue, exchange, routingKey);
 
-                foreach (var handler in eventHandlerFactory.Invoke())
+                var consumer = new EventingBasicConsumer(_channel);
+
+                consumer.Received += (sender, e) =>
                 {
-                    HandleEvent(handler, evento);
-                }
-            };
+                    try
+                    {
+                        var @event = JsonConvert.DeserializeObject<TEvent>(e.Body.Deserialize<string>());
 
-            _channel.BasicConsume(queue: queue, autoAck: true, consumer: consumer);
+                        HandleEvent(handler, @event);
 
+                        _channel.BasicAck(e.DeliveryTag, false);
+                    }
+
+                    catch (Exception ex)
+                    {
+                        string error = $"an error occurred while handling the event. Exchange: {exchange}, Queue : {queue}, Message: {ex.Message}";
+                        _channel.BasicNack(e.DeliveryTag, false, !e.Redelivered);
+                    }
+                };
+
+                _channel.BasicConsume(queue: queue, autoAck: false, consumer: consumer);
+            }
             return Task.CompletedTask;
         }
 

@@ -23,7 +23,7 @@ namespace Infra.Mediator
         {
             try
             {
-                if (_connection?.IsOpen == null || _connection?.IsOpen == false)
+                if (_connection == null || !_connection.IsOpen)
                 {
                     var rabbitSection = RabbitSection.Section.Settings;
 
